@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenAI Model Spec</title>
+  <style>
+    :root {
+      --bg: rgba(20, 20, 30, 0.9);
+      --glass: rgba(255, 255, 255, 0.06);
+      --border: rgba(255, 255, 255, 0.2);
+      --highlight: #10f5cc;
+      --text: #ffffff;
+      --muted: #aaa;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f0f1b, #1b1b2d);
+      color: var(--text);
+    }
+    header {
+      padding: 2rem;
+      text-align: center;
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 1rem auto;
+      gap: 0.5rem;
+    }
+    .tab-button {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    .tab-button:hover,
+    .tab-button.active {
+      background: var(--highlight);
+      color: black;
+    }
+    .section {
+      display: none;
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+    }
+    .section.active {
+      display: block;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    th, td {
+      padding: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+    th {
+      color: var(--highlight);
+    }
+    @media (max-width: 600px) {
+      .tabs {
+        flex-direction: column;
+      }
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      td {
+        border-bottom: 1px solid var(--border);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🧠 OpenAI Model Spec Playground</h1>
+    <p>Compare capabilities of GPT-4o, GPT-4-turbo, GPT-3.5 — interactively.</p>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-button active" onclick="switchTab('overview')">Overview</button>
+    <button class="tab-button" onclick="switchTab('features')">Core Features</button>
+    <button class="tab-button" onclick="switchTab('context')">Context & Pricing</button>
+    <button class="tab-button" onclick="switchTab('usecases')">Use Cases</button>
+  </div>
+
+  <div id="overview" class="section active">
+    <h2>🚀 Model Overview</h2>
+    <table>
+      <thead>
+        <tr><th>Model</th><th>Release</th><th>Context Limit</th><th>Cutoff</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>GPT-4o</td><td>May 13, 2024</td><td>128k tokens</td><td>Oct 2023</td></tr>
+        <tr><td>GPT-4-turbo</td><td>Nov 6, 2023</td><td>128k tokens</td><td>Oct 2023</td></tr>
+        <tr><td>GPT-3.5-turbo</td><td>Nov 30, 2022</td><td>16k tokens</td><td>Sep 2021</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="features" class="section">
+    <h2>🧩 Core Features Comparison</h2>
+    <table>
+      <thead>
+        <tr><th>Feature</th><th>GPT-4o</th><th>GPT-4-turbo</th><th>GPT-3.5</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Multimodal (text+image+audio)</td><td>✅</td><td>❌</td><td>❌</td></tr>
+        <tr><td>JSON Mode</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Function Calling</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Streaming</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Audio In/Out</td><td>✅</td><td>❌</td><td>❌</td></tr>
+        <tr><td>Video understanding</td><td>✅ (early)</td><td>❌</td><td>❌</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="context" class="section">
+    <h2>💰 Context Window & Pricing</h2>
+    <table>
+      <thead>
+        <tr><th>Model</th><th>Context</th><th>Prompt Token</th><th>Completion Token</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>GPT-4o</td><td>128k</td><td>$0.005 / 1k</td><td>$0.015 / 1k</td></tr>
+        <tr><td>GPT-4-turbo</td><td>128k</td><td>$0.01 / 1k</td><td>$0.03 / 1k</td></tr>
+        <tr><td>GPT-3.5-turbo</td><td>16k</td><td>$0.0005 / 1k</td><td>$0.0015 / 1k</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="usecases" class="section">
+    <h2>📌 Best Use Cases</h2>
+    <table>
+      <thead>
+        <tr><th>Use Case</th><th>Recommended Model</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Multimodal input/output (voice, vision)</td><td>GPT-4o</td></tr>
+        <tr><td>Long document processing</td><td>GPT-4o / GPT-4-turbo</td></tr>
+        <tr><td>Budget-friendly tools</td><td>GPT-3.5</td></tr>
+        <tr><td>Complex reasoning, accuracy</td><td>GPT-4o</td></tr>
+        <tr><td>Fast interactive chat</td><td>GPT-4o</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>
